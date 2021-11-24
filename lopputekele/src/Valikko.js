@@ -1,7 +1,7 @@
 const Menu = () => {
     return(
         <div>
-            <h1>Kanye Oneliners</h1>
+            <h1 className="font-bold">Kanye Oneliners</h1>
 
             <button>Fetch 1 quote</button>
             <button>Delete 1 quote</button>
