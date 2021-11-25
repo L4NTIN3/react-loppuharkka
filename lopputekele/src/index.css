@@ -4,9 +4,13 @@
 
 
 .btn{
-    @apply rounded 
+    @apply rounded mt-4
 }
 
 .btn-green{
-    @apply bg-green-600 text-white 
+    @apply bg-green-600 text-white h-8 border-2  
+}
+
+.listpart{
+    @apply flex flex-wrap border-2 rounded w-6/12 justify-center items-center 
 }
