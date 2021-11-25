@@ -8,8 +8,9 @@ const AppProvider = ({ children }) => {
     
 
     const [state, setState] = useState({
+        tallennetutLinet: [],
         haetutLinet: [],
-        sanaMäärä: 0,
+        sanaMäärä: 1,
         sopivatQuotet: []
     })   
 

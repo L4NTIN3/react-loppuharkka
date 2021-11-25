@@ -4,8 +4,8 @@ import { AppContext } from "./app-context";
 
 const Menu = () => {
 
-    const [state, setState] = useContext(AppContext)
-    const [määrä, setMäärä] = useState(1)
+    const [state, setState] = useContext(AppContext);
+    const [maara, setMaara] = useState();
 
     const fetchQuote = async () => {
         
@@ -14,51 +14,27 @@ const Menu = () => {
         let response = await fetch(API_URL);
         let data = await response.json();
 
-        const newArray = state.haetutLinet.slice()
-        newArray.push(data)
+        state.tallennetutLinet.push(data)
 
         setState({...state, 
-            haetutLinet: state.haetutLinet.concat(data)
+            haetutLinet: state.tallennetutLinet
              
         })
     }
 
     const deleteAll = () => {
+        setState({...state, tallennetutLinet: state.tallennetutLinet.length = 0})
         setState({...state, haetutLinet: []})
-    }
-
-    const wordCount = (item, index) => {
-
-        let l = 0;
-        for(let i = 0; i <= item.length; i++){
-            if(item.charAt(i) === " "){
-                l++;
-            }
-        }
-
-        console.log(l)
-        if (l >= määrä){
-            setState({...state, sopivatQuotet: state.sopivatQuotet.concat(item)})
-        }
-
+        
     }
 
     useEffect(() => {
-        
-        if(määrä === 0){
-            
-            setState({...state, sopivatQuotet: state.haetutLinet})
+
+        if(maara < 1){
+            setState({...state, haetutLinet: state.tallennetutLinet})
         }
+    })
 
-        else{
-            
-            state.haetutLinet.forEach(wordCount)
-            setState({...state, haetutLinet: state.sopivatQuotet})
-
-        }
-
-
-    }, [ määrä ]);
 
     return(
 
@@ -74,13 +50,14 @@ const Menu = () => {
 
                 </div>
                 <div className=" h-10 flex flex-col flex-auto content-center ">
-                    <input className="mt-10" type="Text" value={määrä} onChange ={(e) => setMäärä(e.target.value)} />
+                    <input className="mt-10" type="Text" pattern="[0-9999]*" value={maara} onChange={(e) => setMaara(e.target.value)} />
+
                 </div>
 
 
                 <div className="flex flex-col flex-wrap flex-auto content-center ">
-                    <p className="btn btn-green">Näin monta näytetään</p>
-                    <p className="btn btn-green">{state.haetutLinet.length}</p>
+                    <p className="btn btn-green w-32">{state.haetutLinet.length}</p>
+                    <p className="btn btn-green w-32">{state.tallennetutLinet.length}</p>
 
                 </div>
             </div>
