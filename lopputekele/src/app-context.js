@@ -10,6 +10,7 @@ const AppProvider = ({ children }) => {
     const [state, setState] = useState({
         haetutLinet: [],
         sanaMäärä: 0,
+        sopivatQuotet: []
     })   
 
 

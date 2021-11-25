@@ -1,10 +1,11 @@
-import { data } from "autoprefixer";
-import { useContext } from "react";
+import { useContext, useState } from "react";
+import { useEffect } from "react/cjs/react.development";
 import { AppContext } from "./app-context";
 
 const Menu = () => {
 
     const [state, setState] = useContext(AppContext)
+    const [määrä, setMäärä] = useState(1)
 
     const fetchQuote = async () => {
         
@@ -22,6 +23,43 @@ const Menu = () => {
         })
     }
 
+    const deleteAll = () => {
+        setState({...state, haetutLinet: []})
+    }
+
+    const wordCount = (item, index) => {
+
+        let l = 0;
+        for(let i = 0; i <= item.length; i++){
+            if(item.charAt(i) === " "){
+                l++;
+            }
+        }
+
+        console.log(l)
+        if (l >= määrä){
+            setState({...state, sopivatQuotet: state.sopivatQuotet.concat(item)})
+        }
+
+    }
+
+    useEffect(() => {
+        
+        if(määrä === 0){
+            
+            setState({...state, sopivatQuotet: state.haetutLinet})
+        }
+
+        else{
+            
+            state.haetutLinet.forEach(wordCount)
+            setState({...state, haetutLinet: state.sopivatQuotet})
+
+        }
+
+
+    }, [ määrä ]);
+
     return(
 
         <div className = "w-full">
@@ -32,17 +70,17 @@ const Menu = () => {
                 
                 <div className=" h-30 flex flex-col flex-auto content-center flex-wrap  ">
                     <button className="btn btn-green" onClick={ fetchQuote } >Fetch 1 quote</button>
-                    <button className="btn btn-green">Delete 1 quote</button>
+                    <button className="btn btn-green" onClick={ deleteAll } >Delete all quotes</button>
 
                 </div>
                 <div className=" h-10 flex flex-col flex-auto content-center ">
-                    <input className="mt-10"></input>
+                    <input className="mt-10" type="Text" value={määrä} onChange ={(e) => setMäärä(e.target.value)} />
                 </div>
 
 
                 <div className="flex flex-col flex-wrap flex-auto content-center ">
                     <p className="btn btn-green">Näin monta näytetään</p>
-                    <p className="btn btn-green">Näin monta on tallennettu</p>
+                    <p className="btn btn-green">{state.haetutLinet.length}</p>
 
                 </div>
             </div>
