@@ -11,9 +11,9 @@ const Linet = () => {
 
         <div className="h-96 overflow-y-auto ">
             <div className="flex flex-col justify-center items-center border-green-200 ">
-                {state.haetutLinet.map(({quote}, index) => {
+                {state.haetutLinet.map(({quote}) => {
                 return (
-                    <ListAdd quote = {quote} index = {index}/>
+                    <ListAdd quote = {quote} />
                 )
                 
                 })}

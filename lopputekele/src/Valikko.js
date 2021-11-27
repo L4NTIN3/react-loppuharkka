@@ -5,7 +5,7 @@ import { AppContext } from "./app-context";
 const Menu = () => {
 
     const [state, setState] = useContext(AppContext);
-    const [maara, setMaara] = useState();
+    const [maara, setMaara] = useState(0);
 
     const fetchQuote = async () => {
         
@@ -15,11 +15,14 @@ const Menu = () => {
         let data = await response.json();
 
         state.tallennetutLinet.push(data)
+        console.log(state.tallennetutLinet)
 
         setState({...state, 
             haetutLinet: state.tallennetutLinet
              
         })
+        
+
     }
 
     const deleteAll = () => {
@@ -30,10 +33,44 @@ const Menu = () => {
 
     useEffect(() => {
 
-        if(maara < 1){
+        //TÄMÄ FUNKKARI OLI SEN VERRAN KARMIVA KASATA ETTEN VIITSINYT ENÄÄ ALKAA HIOMAAN SITÄ TÄMÄN ENEMPÄÄ.
+
+
+        if(maara < 2 && maara > 0){
             setState({...state, haetutLinet: state.tallennetutLinet})
         }
-    })
+        else if(maara == 0 || maara == null){
+            setState({...state, haetutLinet: state.tallennetutLinet})
+        }
+        else if(maara > 1 && maara < 999){
+
+
+            //tehdään lista joka lisätään sitten renderöitävään listaan.
+            let tallennettava = []
+
+            for(let i = 0; i < state.tallennetutLinet.length; i++){
+
+
+                //haetaan arrayksi splitattava quote kaikista tallennetuista arvoista.
+                let jono = state.tallennetutLinet[i].quote;
+
+                //tehdään olio jolle annetaan property quote ja sen arvoksi kunkin haetun arvon indeksi
+                let n = {quote: jono}
+
+                //array joka on splitattu sanoiksi 
+                let l = jono.split(" ");
+
+                if(l.length >= maara){
+                    tallennettava.push(n)
+                }
+            }
+
+            setState({...state, haetutLinet: tallennettava})
+
+            
+        }
+
+    }, [maara])
 
 
     return(
@@ -45,8 +82,8 @@ const Menu = () => {
             <div className="h-48 flex flex-wrap flex-auto content-center bg-gray-500">
                 
                 <div className=" h-30 flex flex-col flex-auto content-center flex-wrap  ">
-                    <button className="btn btn-green" onClick={ fetchQuote } >Fetch 1 quote</button>
-                    <button className="btn btn-green" onClick={ deleteAll } >Delete all quotes</button>
+                    <button className="btn btn-green" onClick={ fetchQuote } >  Fetch 1 quote  </button>
+                    <button className="btn btn-green" onClick={ deleteAll } >  Delete all quotes  </button>
 
                 </div>
                 <div className=" h-10 flex flex-col flex-auto content-center ">
