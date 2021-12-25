@@ -4,13 +4,25 @@
 
 
 .btn{
-    @apply rounded mt-4
+    @apply rounded py-2 ;
 }
 
 .btn-green{
-    @apply bg-green-600 text-white h-8 border-2  
+    @apply bg-gradient-to-r from-purple-700 to-blue-600 text-white w-3/6 border-2 m-auto text-center
 }
 
 .listpart{
-    @apply flex flex-wrap border-2 rounded w-6/12 justify-center items-center 
+    @apply flex flex-wrap border-2 rounded justify-between w-4/5  
+}
+
+.counterit{
+    @apply 
+    bg-gradient-to-r from-purple-700 to-blue-600
+    text-2xl 
+    text-white 
+    w-3/6 
+    border-2 
+    m-auto 
+    text-center
+    mt-2 
 }

@@ -15,10 +15,11 @@ const Menu = () => {
         let data = await response.json();
 
         state.tallennetutLinet.push(data)
-        console.log(state.tallennetutLinet)
+        state.haetutLinet.push(data)
+        
 
         setState({...state, 
-            haetutLinet: state.tallennetutLinet
+            haetutLinet: state.haetutLinet
              
         })
         
@@ -40,7 +41,7 @@ const Menu = () => {
             setState({...state, haetutLinet: state.tallennetutLinet})
         }
         else if(maara == 0 || maara == null){
-            setState({...state, haetutLinet: state.tallennetutLinet})
+            setState({...state, haetutLinet: []})
         }
         else if(maara > 1 && maara < 999){
 
@@ -77,24 +78,24 @@ const Menu = () => {
 
         <div className = "w-full">
 
-            <h1 className="font-bold text-2xl m-4">Kanye Oneliners</h1>
+            <h1 className="font-bold text-2xl pt-4">Kanye Oneliners</h1>
 
-            <div className="h-48 flex flex-wrap flex-auto content-center bg-gray-500">
+            <div className="h-48 flex flex-wrap flex-auto content-center ">
                 
-                <div className=" h-30 flex flex-col flex-auto content-center flex-wrap  ">
-                    <button className="btn btn-green" onClick={ fetchQuote } >  Fetch 1 quote  </button>
-                    <button className="btn btn-green" onClick={ deleteAll } >  Delete all quotes  </button>
+                <div className=" h-30 flex flex-col flex-auto content-center w-3/12 ">
+                    <button className="btn counterit" onClick={ fetchQuote } >  Fetch 1 quote  </button>
+                    <button className="btn counterit" onClick={ deleteAll } >  Delete all quotes  </button>
 
                 </div>
-                <div className=" h-10 flex flex-col flex-auto content-center ">
-                    <input className="mt-10" type="Text" pattern="[0-9999]*" value={maara} onChange={(e) => setMaara(e.target.value)} />
+                <div className=" h-10 flex flex-col flex-auto w-3/12 content-center ">
+                    <input className="mt-10" type="number" min="0" max="999" value={maara} onChange={(e) => setMaara(e.target.value)} />
 
                 </div>
 
 
-                <div className="flex flex-col flex-wrap flex-auto content-center ">
-                    <p className="btn btn-green w-32">{state.haetutLinet.length}</p>
-                    <p className="btn btn-green w-32">{state.tallennetutLinet.length}</p>
+                <div className="flex flex-col w-3/12 flex-auto content-center ">
+                    <p className="btn counterit w-32">{state.haetutLinet.length}</p>
+                    <p className="btn counterit w-32">{state.tallennetutLinet.length}</p>
 
                 </div>
             </div>
