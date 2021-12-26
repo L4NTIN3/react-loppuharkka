@@ -28,8 +28,7 @@ const ListAdd = ({ quote, index }) => {
 
         let h = state.tallennetutLinet.filter((quote) => {
             return !(
-                q.quote === quote.quote &&
-                q.index === quote.index
+                q.quote === quote.quote 
             )
         })
 
